@@ -10,7 +10,7 @@
 - ROOM の名前：YOMI　大人のご褒美ケア
 - 肩書き・強み：元美容師（プロフィール：「元美容師が選ぶ、大人のための美容アイテム」）
 - ROOM のテーマ（ヘッダー画像）：「大人のヘアケア　50代・60代の髪と美容」「薄毛・白髪・ボリュームの悩みに寄り添う」
-- ROOM の URL：（例：https://room.rakuten.co.jp/xxxx）
+- ROOM の URL：https://room.rakuten.co.jp/yomihairnote/items
 - ROOM を始めた時期：
 - 使っている端末：スマホ中心
 - Claude への話し方の希望：（例：専門用語は使わず、短く、ていねいに）
