@@ -12,7 +12,8 @@ def genre(n):
     rules=[
      ('眉・顔まわり',['眉','アイブロウ','フェリエ']),
      ('ウィッグ',['ウィッグ']),
-     ('帽子・小物',['帽子','キャスケット','ニット帽','手袋','ストール','靴下','ニューバランス']),
+     ('帽子・小物',['帽子','キャスケット','ニット帽','手袋','ストール','靴下',]),
+     ('靴・サポーター',['ニューバランス']),
      ('手もと・からだ',['ハンドクリーム','ボディバター']),
      ('シルク・夜ケア',['ナイトキャップ','ピローケース','ヘアゴム']),
      ('スキンケア',['化粧水','美容液','クリーム','オールインワン','アイクリーム','メラノCC','肌美精']),
@@ -64,6 +65,25 @@ for h in heads:
     if tail.strip(): memo.append(tail.strip().lstrip('★').replace(' ',''))
     rows.append([date,name.strip(),shop,price,pricenote,genre(name),'、'.join(memo)])
 
+extra=[
+ ('VALANROSE KURO クリームシャンプー','白髪ケア',None),
+ ('アルガネーゼ カラートリートメント','白髪ケア',None),
+ ('アルガネーゼ グレイヘア','白髪ケア',None),
+ ('スカルプD ボーテ シャンプー','薄毛・ボリューム・頭皮',None),
+ ('セラプリエ','薄毛・ボリューム・頭皮',None),
+ ('uka スカルプブラシ','道具・家電',None),
+ ('パナソニック ナノケア（ドライヤー）','道具・家電',None),
+ ('頭皮エステ','道具・家電',None),
+ ('ORBIS エッセンスインヘアミルク','パサつき・ツヤ・まとまり',None),
+ ('帽子のコンヌ キルティング帽子','帽子・小物',None),
+ ('ダンロップ リファインド ウォーキングシューズ','靴・サポーター',3990),
+ ('アサヒ 快歩主義 L011','靴・サポーター',5499),
+ ('アシックス ハダシウォーカー 1292A066','靴・サポーター',11880),
+ ('ファイテン サポーター 腰用','靴・サポーター',7920),
+ ('ファイテン サポーター ひざ用','靴・サポーター',4400),
+]
+for n,g,pr in extra:
+    rows.append([None,n,'',pr,'〜' if n.startswith('アサヒ') else '',g,'最初のころ・ほかの会話の投稿（日付・お店はメモになし）'])
 rows.sort(key=lambda r:(r[0] or datetime.date(2026,9,30)))
 
 wb=Workbook(); ws=wb.active; ws.title='投稿一覧'
@@ -72,7 +92,7 @@ title=Font(name=F,bold=True,size=14); hdr=Font(name=F,bold=True,color='FFFFFF');
 fill=PatternFill('solid',fgColor='8E5A7A'); alt=PatternFill('solid',fgColor='F7EEF3'); red=PatternFill('solid',fgColor='EEEEEE')
 thin=Side(style='thin',color='DDDDDD'); bd=Border(top=thin,bottom=thin,left=thin,right=thin)
 ws['A1']='YOMI 大人のご褒美ケア　投稿した商品の一覧'; ws['A1'].font=title
-ws['A2']='メモ（notes/紹介文の案.md）に記録した投稿から作りました。ROOM の商品数（106 件）より少ないのは、最初のころの投稿など、メモに記録がないものがあるためです。'; ws['A2'].font=Font(name=F,size=10,color='666666')
+ws['A2']='メモ（notes/紹介文の案.md）に記録した投稿から作りました。投稿日が空いているものは、最初のころ・ほかの会話の投稿で、日付やお店がメモにないものです。'; ws['A2'].font=Font(name=F,size=10,color='666666')
 heads_=['No.','投稿日','商品名','お店','値段（円）','値段のメモ','ジャンル','メモ']
 for i,hh in enumerate(heads_,1):
     c=ws.cell(row=4,column=i,value=hh); c.font=hdr; c.fill=fill; c.alignment=Alignment(horizontal='center',vertical='center'); c.border=bd
@@ -102,7 +122,7 @@ s['A4']='そのうち削除したもの'; s['B4']=f'=COUNTIF(投稿一覧!H5:H{l
 s['A5']='値段の平均（円）'; s['B5']=f'=ROUND(AVERAGE(投稿一覧!E5:E{last}),0)'; s['B5'].number_format='#,##0'
 s['A7']='ジャンル'; s['B7']='投稿の数'
 for c in ('A7','B7'): s[c].font=hdr; s[c].fill=fill
-genres=['パサつき・ツヤ・まとまり','白髪ケア','薄毛・ボリューム・頭皮','スキンケア','道具・家電','帽子・小物','手もと・からだ','シルク・夜ケア','眉・顔まわり','ウィッグ']
+genres=['パサつき・ツヤ・まとまり','白髪ケア','薄毛・ボリューム・頭皮','スキンケア','道具・家電','帽子・小物','手もと・からだ','シルク・夜ケア','眉・顔まわり','ウィッグ','靴・サポーター']
 for i,g in enumerate(genres):
     r=8+i; s.cell(row=r,column=1,value=g); s.cell(row=r,column=2,value=f'=COUNTIF(投稿一覧!G$5:G${last},A{r})')
 for row in s.iter_rows(min_row=3,max_row=8+len(genres)):
