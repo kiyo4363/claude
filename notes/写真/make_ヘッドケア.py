@@ -18,14 +18,14 @@ def square(path, focus_y=0.5, focus_x=0.5):
 def text_c(d,cx,y,t,f,fill):
     w=d.textlength(t,font=f); d.text((cx-w/2,y),t,font=f,fill=fill)
 
-def band(im,lines):
+def band(im,lines,top=50):
     ov=Image.new('RGBA',im.size,(0,0,0,0)); d=ImageDraw.Draw(ov)
-    d.rounded_rectangle((60,50,1540,410),radius=40,fill=CREAM+(235,))
+    d.rounded_rectangle((60,top,1540,top+360),radius=40,fill=CREAM+(235,))
     im=Image.alpha_composite(im.convert('RGBA'),ov); d=ImageDraw.Draw(im)
-    text_c(d,800,85,lines[0],font(64),ROSE)
-    text_c(d,800,180,lines[1],font(120),BROWN)
-    d.line((300,330,1300,330),fill=ROSE,width=4)
-    text_c(d,800,345,lines[2],font(46),BROWN)
+    text_c(d,800,top+35,lines[0],font(64),ROSE)
+    text_c(d,800,top+130,lines[1],font(120),BROWN)
+    d.line((300,top+280,1300,top+280),fill=ROSE,width=4)
+    text_c(d,800,top+295,lines[2],font(46),BROWN)
     return im
 
 def badges(im,items,y=1240):
@@ -41,6 +41,6 @@ a=band(a,['＼ 元美容師の愛用品 ／','毎日のご褒美ヘッドケア'
 a=badges(a,[('お風呂でも','使える'),('力加減を','自分で'),('耳まわり・','首すじも')])
 a.convert('RGB').save('/home/user/claude/notes/写真/ヘッドケア_1.jpg',quality=92)
 
-b=square('/root/.claude/uploads/6329eea8-3d42-5fdc-a6f7-6294973fb194/29ff2612-image.jpg',0.62,0.3)
-b=band(b,['＼ 元美容師が毎日使う ／','頭がスッキリ、気持ちいい','ツインバード 防水ヘッドケア機'])
+b=square('/root/.claude/uploads/6329eea8-3d42-5fdc-a6f7-6294973fb194/29ff2612-image.jpg',0.25,0.3)
+b=band(b,['＼ 元美容師が毎日使う ／','頭がスッキリ、気持ちいい','ツインバード 防水ヘッドケア機'],top=1200)
 b.convert('RGB').save('/home/user/claude/notes/写真/ヘッドケア_2.jpg',quality=92)
