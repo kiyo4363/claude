@@ -48,7 +48,7 @@ def badges(im,items,y=1240,r=150,fs=52,gap=360):
 
 a=square('/root/.claude/uploads/6329eea8-3d42-5fdc-a6f7-6294973fb194/75c2eabb-image.jpg',0.55)
 a=band(a,['＼ 元美容師の愛用品 ／','毎日のご褒美ヘッドケア','気が向いたら すぐ手に取れる場所に'],top=30,small=True)
-a=badges(a,[('お風呂でも','使える'),('力加減を','自分で'),('耳まわり・','首すじも')],y=1440,r=115,fs=40,gap=290)
+a=badges(a,[('お風呂でも','使える'),('力加減を','自分で'),('耳まわり・','首すじも')])
 a.convert('RGB').save('/home/user/claude/notes/写真/ヘッドケア_1.jpg',quality=92)
 
 b=square('/root/.claude/uploads/6329eea8-3d42-5fdc-a6f7-6294973fb194/29ff2612-image.jpg',0.25,0.3)
