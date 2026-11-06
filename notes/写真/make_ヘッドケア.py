@@ -38,17 +38,17 @@ def band_small(im,lines,top):
     text_c(d,800,top+190,lines[2],font(36),BROWN)
     return im
 
-def badges(im,items,y=1240):
-    d=ImageDraw.Draw(im); r=150; n=len(items)
-    xs=[800+(i-(n-1)/2)*360 for i in range(n)]
+def badges(im,items,y=1240,r=150,fs=52,gap=360):
+    d=ImageDraw.Draw(im); n=len(items)
+    xs=[800+(i-(n-1)/2)*gap for i in range(n)]
     for x,(a,b) in zip(xs,items):
         d.ellipse((x-r,y-r,x+r,y+r),fill=CREAM+(240,),outline=ROSE,width=6)
-        text_c(d,x,y-62,a,font(52),BROWN); text_c(d,x,y+8,b,font(52),BROWN)
+        text_c(d,x,y-fs-8,a,font(fs),BROWN); text_c(d,x,y+6,b,font(fs),BROWN)
     return im
 
 a=square('/root/.claude/uploads/6329eea8-3d42-5fdc-a6f7-6294973fb194/75c2eabb-image.jpg',0.55)
-a=band(a,['＼ 元美容師の愛用品 ／','毎日のご褒美ヘッドケア','気が向いたら すぐ手に取れる場所に'])
-a=badges(a,[('お風呂でも','使える'),('力加減を','自分で'),('耳まわり・','首すじも')])
+a=band(a,['＼ 元美容師の愛用品 ／','毎日のご褒美ヘッドケア','気が向いたら すぐ手に取れる場所に'],top=30,small=True)
+a=badges(a,[('お風呂でも','使える'),('力加減を','自分で'),('耳まわり・','首すじも')],y=1440,r=115,fs=40,gap=290)
 a.convert('RGB').save('/home/user/claude/notes/写真/ヘッドケア_1.jpg',quality=92)
 
 b=square('/root/.claude/uploads/6329eea8-3d42-5fdc-a6f7-6294973fb194/29ff2612-image.jpg',0.25,0.3)
