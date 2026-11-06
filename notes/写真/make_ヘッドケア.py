@@ -1,4 +1,4 @@
-from PIL import Image, ImageDraw, ImageFont, ImageOps
+from PIL import Image, ImageDraw, ImageFont, ImageOps, ImageEnhance
 F='/usr/share/fonts/opentype/ipafont-gothic/ipag.ttf'
 def font(s): return ImageFont.truetype(F,s)
 CREAM=(250,244,236); BROWN=(110,74,56); ROSE=(176,104,120)
@@ -7,7 +7,13 @@ def square(path, focus_y=0.5, focus_x=0.5):
     im=ImageOps.exif_transpose(Image.open(path)).convert('RGB')
     w,h=im.size; s=min(w,h)
     x=int((w-s)*focus_x); y=int((h-s)*focus_y)
-    return im.crop((x,y,x+s,y+s)).resize((1600,1600))
+    im=im.crop((x,y,x+s,y+s)).resize((1600,1600))
+    im=ImageEnhance.Brightness(im).enhance(1.45)
+    im=ImageEnhance.Color(im).enhance(0.55)
+    im=ImageEnhance.Contrast(im).enhance(0.9)
+    warm=Image.new('RGB',im.size,(255,236,220))
+    im=Image.blend(im,warm,0.22)
+    return im
 
 def text_c(d,cx,y,t,f,fill):
     w=d.textlength(t,font=f); d.text((cx-w/2,y),t,font=f,fill=fill)
